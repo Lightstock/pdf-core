@@ -129,7 +129,7 @@ module PDF
         return inherited_dictionary_value(:MediaBox) if imported_page?
 
         coords = PDF::Core::PageGeometry::SIZES[size] || size
-        [0,0] + case(layout)
+        c = case(layout)
         when :portrait
           coords
         when :landscape
@@ -138,6 +138,8 @@ module PDF
           raise PDF::Core::Errors::InvalidPageLayout,
             "Layout must be either :portrait or :landscape"
         end
+        
+        [0,0] + c
       end
 
       private
